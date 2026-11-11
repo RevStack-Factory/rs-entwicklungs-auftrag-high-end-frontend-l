@@ -1,0 +1,56 @@
+:root {
+  /* Surfaces */
+  --color-rich-slate-black: #0d1117;
+  --color-space-charcoal: #151b24;
+  --color-space-charcoal-elevated: #1c2430;
+  --color-border-subtle: rgba(0, 240, 255, 0.12);
+
+  /* Accents */
+  --color-neon-cyan: #00f0ff;
+  --color-neon-cyan-dim: rgba(0, 240, 255, 0.55);
+  --color-neon-green: #39ff14;
+  --color-neon-green-dim: rgba(57, 255, 20, 0.5);
+
+  /* Typography */
+  --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.84rem + 0.2vw, 0.9375rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.0625rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-xl: clamp(1.35rem, 1.2rem + 0.6vw, 1.75rem);
+  --text-2xl: clamp(1.75rem, 1.45rem + 1.2vw, 2.5rem);
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  /* Layout */
+  --layout-max-width: 72rem;
+  --header-height: 4.25rem;
+  --footer-padding-y: 2.5rem;
+  --section-gap: clamp(3rem, 5vw, 5.5rem);
+  --page-gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Motion / inertia */
+  --ease-inertia: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 520ms;
+
+  /* Depth */
+  --depth-focus: 12px;
+  --shadow-cyan-glow: 0 0 0 1px rgba(0, 240, 255, 0.35),
+    0 0 24px rgba(0, 240, 255, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}
