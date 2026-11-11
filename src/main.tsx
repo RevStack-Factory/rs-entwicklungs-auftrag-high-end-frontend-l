@@ -5,6 +5,7 @@ import './styles/global.css';
 import './styles/motion.css';
 import './styles/layout.css';
 import './styles/legal-modal.css';
+import './styles/sections.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
