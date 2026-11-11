@@ -6,6 +6,7 @@ import './styles/motion.css';
 import './styles/layout.css';
 import './styles/legal-modal.css';
 import './styles/sections.css';
+import './styles/booking.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
