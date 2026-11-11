@@ -1,0 +1,57 @@
+/* CSS fallback for edge refraction / premium hover (WebGL refraction in later streams) */
+.interactive-surface {
+  position: relative;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  background: rgba(21, 27, 36, 0.65);
+  transition:
+    border-color var(--duration-base) var(--ease-inertia),
+    box-shadow var(--duration-base) var(--ease-inertia),
+    transform var(--duration-base) var(--ease-inertia);
+}
+
+.interactive-surface::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 240, 255, 0.22),
+    transparent 40%,
+    rgba(57, 255, 20, 0.08)
+  );
+  transition: opacity var(--duration-base) var(--ease-inertia);
+}
+
+.interactive-surface:hover {
+  border-color: rgba(0, 240, 255, 0.45);
+  box-shadow: var(--shadow-cyan-glow);
+}
+
+.interactive-surface:hover::before {
+  opacity: 1;
+}
+
+.focus-depth {
+  transform-style: preserve-3d;
+  transition: transform var(--duration-base) var(--ease-inertia);
+}
+
+.focus-depth:focus-within {
+  transform: translateZ(var(--depth-focus));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-surface,
+  .interactive-surface::before,
+  .focus-depth {
+    transition: none;
+  }
+
+  .focus-depth:focus-within {
+    transform: none;
+  }
+}
