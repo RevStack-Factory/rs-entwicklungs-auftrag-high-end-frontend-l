@@ -1,12 +1,14 @@
-import { useCallback, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 import { LegalModal, type LegalModalTopic } from './components/LegalModal';
 import { LandingSections } from './components/LandingSections';
 
+const BookingOverlay = lazy(() => import('./booking/BookingOverlay'));
+
 export default function App() {
   const [legalTopic, setLegalTopic] = useState<LegalModalTopic | null>(null);
-  const bookingMountRef = useRef<HTMLDivElement>(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   const openLegal = useCallback((topic: LegalModalTopic) => {
     setLegalTopic(topic);
@@ -17,11 +19,18 @@ export default function App() {
   }, []);
 
   const openBooking = useCallback(() => {
-    const mount = bookingMountRef.current;
-    if (mount) {
-      mount.dataset.active = 'true';
-    }
+    setBookingOpen(true);
     window.dispatchEvent(new CustomEvent('develup:open-booking'));
+  }, []);
+
+  const closeBooking = useCallback(() => {
+    setBookingOpen(false);
+  }, []);
+
+  useEffect(() => {
+    const onExternalOpen = () => setBookingOpen(true);
+    window.addEventListener('develup:open-booking', onExternalOpen);
+    return () => window.removeEventListener('develup:open-booking', onExternalOpen);
   }, []);
 
   return (
@@ -33,13 +42,9 @@ export default function App() {
         </p>
         <LandingSections onOpenBooking={openBooking} />
       </main>
-      <div
-        ref={bookingMountRef}
-        id="booking-overlay-root"
-        className="booking-overlay-mount"
-        data-active="false"
-        aria-live="polite"
-      />
+      <Suspense fallback={null}>
+        <BookingOverlay open={bookingOpen} onClose={closeBooking} />
+      </Suspense>
       <SiteFooter onLegalOpen={openLegal} />
       <LegalModal topic={legalTopic} onClose={closeLegal} />
     </div>
